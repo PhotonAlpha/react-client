@@ -4,24 +4,23 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
+import ListItemAvatar from '@material-ui/core/ListItemAvatar';
+import Avatar from '@material-ui/core/Avatar';
+import pic1 from '../../assets/imgs/picsum1.jpeg'
 
 export class CommentList extends Component {
   static defaultProps = {
     comments: []
   }
   _buildItem(){
-    // const comments = [
-    //   {name: 'Jerry', comment: 'Hello'},
-    //   {name: 'Tom', comment: 'World'},
-    //   {name: 'Lili', comment: 'yes'}
-    // ]
-    // if(this.props.comments) {
       return this.props.comments.map((val, index) => [
         <ListItem button key={index} >
-          <ListItemText primary={val.name + ':' + val.comment } />
+          <ListItemAvatar>
+            <Avatar alt="Remy Sharp" src={pic1} />
+          </ListItemAvatar>
+          <ListItemText primary={val.name} secondary={val.comment} />
         </ListItem>
       ])
-    // }
   }
   render() {
     

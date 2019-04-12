@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
+import { reduxForm, Field } from 'redux-form'
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import purple from '@material-ui/core/colors/purple';
 import { unstable_Box as Box } from '@material-ui/core/Box';
+
+const required = value => (value == null ? 'Required' : undefined);
 
 const styles = theme => ({
   container: {
@@ -30,10 +33,16 @@ const styles = theme => ({
   notchedOutline: {},
 });
 
-export class CommentInput extends Component {
-  static propTypes = {
+const renderTextField = ({ input, label, meta: { touched, error }, ...custom }) => (
+  <TextField hintText={label}
+    floatingLabelText={label}
+    errorText={touched && error}
+    {...input}
+    {...custom}
+  />
+)
 
-  }
+export class CommentInput extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -60,22 +69,23 @@ export class CommentInput extends Component {
     console.log('render', this.state)
     const { classes } = this.props;
     return (
-      <div >
+      <form >
+          {/* <Field name="firstName" component={renderTextField} label="First Name"/> */}
           <TextField
-            label="UserName"
-            value={this.state.name}
-            onChange={this.handleChange('name')}
-            InputProps={{
-              classes: {
-                root: classes.cssOutlinedInput,
-                notchedOutline: classes.notchedOutline,
-              },
-            }}
-            value = {this.state.name}
-            fullWidth
-            margin="normal"
-            variant="outlined"
-          />
+              label="UserName"
+              value={this.state.name}
+              onChange={this.handleChange('name')}
+              InputProps={{
+                classes: {
+                  root: classes.cssOutlinedInput,
+                  notchedOutline: classes.notchedOutline,
+                },
+              }}
+              value = {this.state.name}
+              fullWidth
+              margin="normal"
+              variant="outlined"
+            />
           <TextField
             label="comment"
             placeholder="input your comment"
@@ -93,7 +103,7 @@ export class CommentInput extends Component {
               Commit
             </Button>
           </Box>
-      </div>
+      </form>
     )
   }
 }
@@ -101,4 +111,11 @@ export class CommentInput extends Component {
 CommentInput.propTypes = {
   classes: PropTypes.object.isRequired,
 };
+
+
+// export default withStyles(styles)(reduxForm({
+//   form: 'testReduxForm',
+//   initialValues:{ firstName: 'fn'}
+// })(CommentInput));
+
 export default withStyles(styles)(CommentInput);
