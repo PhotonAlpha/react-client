@@ -12,15 +12,33 @@ export class CommentApp extends Component {
     }
   }
   
-  handleSubmitComponent(comment) {
-    this.state.comments.push(comment)
+  componentWillMount() {
+    this._loadComments()
+  }
+  
+
+  handleSubmitComponent = comment => {
+    const comments = this.state.comments
+    comments.push(comment)
     console.log('CommentApp', comment)
-    this.setState({comments: this.state.comments})
+    this.setState({comments})
+    this._saveComments(comments)
+  }
+
+  _loadComments() {
+    let comments = localStorage.getItem('comments')
+    if(comments) {
+      comments = JSON.parse(comments)
+      this.setState({comments})
+    }
+  }
+  _saveComments(comments) {
+    localStorage.setItem('comments', JSON.stringify(comments))
   }
   render() {
     return (
       <div className="wrapper" >
-        <CommentInput onSubmit={this.handleSubmitComponent.bind(this)} />
+        <CommentInput onSubmit={this.handleSubmitComponent} />
         <CommentList comments={this.state.comments} />
       </div>
     )
