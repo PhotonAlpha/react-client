@@ -105,7 +105,6 @@ export class CommentInput extends Component {
                 notchedOutline: classes.notchedOutline,
               },
             }}
-            value = {this.state.name}
             fullWidth
             margin="normal"
             variant="outlined"
