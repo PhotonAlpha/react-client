@@ -20,7 +20,9 @@ const styles = theme => ({
 
 export class Comment extends Component {
   static propTypes = {
-
+    comment: PropTypes.object.isRequired,
+    onDeleteComment: PropTypes.func,
+    index: PropTypes.number
   }
   constructor(props) {
     super(props)
@@ -51,6 +53,13 @@ export class Comment extends Component {
     this.setState({name, comment, createTimeStr})
   }
 
+  handleDeleteComment = () => {
+    console.log('comment', this.props.onDeleteComment, this.props.index)
+    if(this.props.onDeleteComment) {
+      this.props.onDeleteComment(this.props.index)
+    }
+  }
+
   render() {
     console.log('render', this.state)
     const { name, comment, createTimeStr } = this.state
@@ -75,7 +84,7 @@ export class Comment extends Component {
             } />
           <ListItemSecondaryAction>
             {createTimeStr}
-            <IconButton edge="end" aria-label="Delete">
+            <IconButton edge="end" aria-label="Delete" onClick={ this.handleDeleteComment } >
               <FontAwesomeIcon icon={faTrashAlt} />
             </IconButton>
           </ListItemSecondaryAction>

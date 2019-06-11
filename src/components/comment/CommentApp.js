@@ -15,7 +15,6 @@ export class CommentApp extends Component {
   componentWillMount() {
     this._loadComments()
   }
-  
 
   handleSubmitComponent = comment => {
     const comments = this.state.comments
@@ -23,6 +22,10 @@ export class CommentApp extends Component {
     console.log('CommentApp', comment)
     this.setState({comments})
     this._saveComments(comments)
+  }
+  handleDeleteComment = index => {
+    console.log('comment app', index)
+    console.log(index)
   }
 
   _loadComments() {
@@ -39,7 +42,7 @@ export class CommentApp extends Component {
     return (
       <div className="wrapper" >
         <CommentInput onSubmit={this.handleSubmitComponent} />
-        <CommentList comments={this.state.comments} />
+        <CommentList onDeleteComment={this.handleDeleteComment} comments={this.state.comments} />
       </div>
     )
   }

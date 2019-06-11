@@ -10,13 +10,19 @@ import pic1 from '../../assets/imgs/picsum1.jpeg'
 import Comment from './Comment'
 
 export class CommentList extends Component {
+  static propTypes = {
+    comments: PropTypes.array,
+    onDeleteComment: PropTypes.func
+  }
+  
   static defaultProps = {
     comments: [],
     pic: pic1
   }
+
   _buildItem(){
       return this.props.comments.map((val, index) => [
-        <Comment key={index} comment={val} pic={this.props.pic}/>
+        <Comment key={index} index={index+1} comment={val} onDeleteComment={this.handleDeleteComment} pic={this.props.pic}/>
         // <ListItem button key={index} >
         //   <ListItemAvatar>
         //     <Avatar alt="Remy Sharp" src={pic1} />
@@ -25,6 +31,14 @@ export class CommentList extends Component {
         // </ListItem>
       ])
   }
+
+  handleDeleteComment = index => {
+    console.log('comment list', index)
+    if(this.props.handleDeleteComment) {
+      this.props.handleDeleteComment(index)
+    }
+  }
+
   render() {
     
     return (
