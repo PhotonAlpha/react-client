@@ -25,7 +25,10 @@ export class CommentApp extends Component {
   }
   handleDeleteComment = index => {
     console.log('comment app', index)
-    console.log(index)
+    const comments = this.state.comments
+    comments.splice(index, 1)
+    this.setState({comments})
+    this._saveComments(comments)
   }
 
   _loadComments() {

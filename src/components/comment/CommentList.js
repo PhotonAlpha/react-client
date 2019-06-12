@@ -22,7 +22,7 @@ export class CommentList extends Component {
 
   _buildItem(){
       return this.props.comments.map((val, index) => [
-        <Comment key={index} index={index+1} comment={val} onDeleteComment={this.handleDeleteComment} pic={this.props.pic}/>
+        <Comment key={index} index={index} comment={val} onDeleteComment={this.handleDeleteComment} pic={this.props.pic}/>
         // <ListItem button key={index} >
         //   <ListItemAvatar>
         //     <Avatar alt="Remy Sharp" src={pic1} />
@@ -33,9 +33,9 @@ export class CommentList extends Component {
   }
 
   handleDeleteComment = index => {
-    console.log('comment list', index)
-    if(this.props.handleDeleteComment) {
-      this.props.handleDeleteComment(index)
+    console.log('comment list', index, this.props)
+    if(this.props.onDeleteComment) {
+      this.props.onDeleteComment(index)
     }
   }
 
