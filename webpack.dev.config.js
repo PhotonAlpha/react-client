@@ -4,20 +4,28 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin")
 
 module.exports = {
   mode: 'development',
-  entry: path.join(__dirname, 'src', 'index'),
+  entry: [
+    'react-hot-loader/patch',
+    path.join(__dirname, 'src/index.js')
+  ],
   watch: true,
   output: {
     path: path.join(__dirname, './dist'),
-    publicPath: '/dist/',
-    filename: "bundle.js",
-    chunkFilename: '[name].js'
+    filename: "bundle.js"
+  },
+  resolve: {
+    alias: {
+      '@': path.join(__dirname, 'src'),
+      comp: path.join(__dirname, 'src/components'),
+    }
   },
   module: {
     rules: [
       {
         test: /\.(js|jsx)$/,
         include: [
-          path.resolve(__dirname, 'src')
+          path.resolve(__dirname, 'src'),
+          path.resolve(__dirname, 'public')
         ],
         exclude: [
           path.resolve(__dirname, 'node_modules')
@@ -25,6 +33,11 @@ module.exports = {
         use: {
           loader: 'babel-loader'
         }
+      },
+      {
+        test: /\.(js|jsx)$/,
+        use: 'react-hot-loader/webpack',
+        include: /node_modules/
       },
       {
         test: /\.html$/,
@@ -36,7 +49,7 @@ module.exports = {
       },
       {
         test: /.(css|scss)$/,
-        use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"]
+        use: ["style-loader", "css-loader", "sass-loader"]
       },
       {
         test: /.(jpg|jpeg|png|gif|mp3|svg)$/,
@@ -56,7 +69,6 @@ module.exports = {
     historyApiFallback: true,
     host: '0.0.0.0',
     port: 3000,
-    hot: true
   },
   plugins: [
     new htmlWebpackPlugin({
@@ -66,6 +78,7 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: "[name].css",
       chunkFilename: "[id].css"
-    })
+    }),
+    
   ]
 }

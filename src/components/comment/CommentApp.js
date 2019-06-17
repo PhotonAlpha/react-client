@@ -8,7 +8,8 @@ export class CommentApp extends Component {
     super(props)
   
     this.state = {
-       comments: []
+       comments: [],
+       count: 0
     }
   }
   
@@ -30,6 +31,11 @@ export class CommentApp extends Component {
     this.setState({comments})
     this._saveComments(comments)
   }
+  handleClick() {
+    this.setState({
+        count: ++this.state.count
+    })
+  }
 
   _loadComments() {
     let comments = localStorage.getItem('comments')
@@ -46,6 +52,8 @@ export class CommentApp extends Component {
       <div className="wrapper" >
         <CommentInput onSubmit={this.handleSubmitComponent} />
         <CommentList onDeleteComment={this.handleDeleteComment} comments={this.state.comments} />
+        当前计数：{this.state.count}<br/>
+        <button onClick={this.handleClick.bind(this)}>自增</button>
       </div>
     )
   }

@@ -2,21 +2,21 @@ import React from 'react'
 
 import {BrowserRouter as Router, Route, Switch, Link} from 'react-router-dom'
 
-import Bundle from './Bundle';
-import Home from '../components/comment/CommentApp'
-import Login from '../components/login/Login'
+// import Bundle from './Bundle';
+import Home from 'comp/comment/CommentApp'
+import Login from 'comp/login/Login'
 
-const Loading = function () {
-  return <div>Loading...</div>
-}
+// const Loading = function () {
+//   return <div>Loading...</div>
+// }
 
-const createComponent = (component) => (props) => (
-  <Bundle load={component}>
-    {
-      (Component) => Component ? <Component {...props} /> : <Loading/>
-    }
-  </Bundle>
-)
+// const createComponent = (component) => (props) => (
+//   <Bundle load={component}>
+//     {
+//       (Component) => Component ? <Component {...props} /> : <Loading/>
+//     }
+//   </Bundle>
+// )
 
 const getRouter = () => (
   <Router>
