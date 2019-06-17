@@ -17,6 +17,7 @@ module.exports = {
     alias: {
       '@': path.join(__dirname, 'src'),
       comp: path.join(__dirname, 'src/components'),
+      act: path.join(__dirname, 'src/redux/actions')
     }
   },
   module: {

@@ -2,20 +2,17 @@ import React from 'react'
 import { AppContainer } from "react-hot-loader"
 import ReactDOM from 'react-dom'
 import './index.css'
-// import App from './App'
+import { Provider } from 'react-redux'
 import * as serviceWorker from './serviceWorker'
-// import { Router} from 'react-router-dom'
-// import history from './router/history'
 
 import getRouter from './router/router'
+import store from './redux/store/store'
 
 renderWithHotReload(getRouter())
 
 /*hot update*/
 if (module.hot) {
-  console.log('module.hot', module.hot)
   module.hot.accept('./router/router', () => {
-    console.log("router111111111111")
     const getRouter = require('./router/router').default;
     renderWithHotReload(getRouter())
   });
@@ -24,7 +21,9 @@ if (module.hot) {
 function renderWithHotReload(RootElement) {
   ReactDOM.render(
     <AppContainer>
-      {RootElement}
+      <Provider store={store} >
+        {RootElement}
+      </Provider>
     </AppContainer>,
     document.getElementById('root')
   )
