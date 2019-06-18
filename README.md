@@ -1,5 +1,10 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+### splitChunks 理解webpack4.splitChunks
+https://juejin.im/post/5b99b9cd6fb9a05cff32007a#heading-7
+
+https://www.cnblogs.com/kwzm/p/10314438.html
+
 ## Available Scripts
 
 In the project directory, you can run:
@@ -66,3 +71,5 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/de
 ### `npm run build` fails to minify
 
 This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+
+

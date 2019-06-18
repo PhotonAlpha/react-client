@@ -2,21 +2,21 @@ import React from 'react'
 
 import {BrowserRouter as Router, Route, Switch, Link} from 'react-router-dom'
 
-// import Bundle from './Bundle';
-import Home from 'comp/comment/CommentApp'
-import Login from 'comp/login/Login'
+import Bundle from './Bundle';
+import Home from 'bundle-loader?lazy&name=Home!comp/comment/CommentApp'
+import Login from 'bundle-loader?lazy&name=Login!comp/login/Login'
 
-// const Loading = function () {
-//   return <div>Loading...</div>
-// }
+const Loading = function () {
+  return <div>Loading...</div>
+}
 
-// const createComponent = (component) => (props) => (
-//   <Bundle load={component}>
-//     {
-//       (Component) => Component ? <Component {...props} /> : <Loading/>
-//     }
-//   </Bundle>
-// )
+const createComponent = (component) => (props) => (
+  <Bundle load={component}>
+    {
+      (Component) => Component ? <Component {...props} /> : <Loading/>
+    }
+  </Bundle>
+)
 
 const getRouter = () => (
   <Router>
@@ -26,8 +26,8 @@ const getRouter = () => (
         <li><Link to="/page1">Page1</Link></li>
       </ul>
       <Switch>
-        <Route exact path="/" component={Home}/>
-        <Route path="/page1" component={Login}/>
+        <Route exact path="/" component={createComponent(Home)}/>
+        <Route path="/page1" component={createComponent(Login)}/>
       </Switch>
     </div>
   </Router>

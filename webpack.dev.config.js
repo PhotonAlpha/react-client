@@ -1,68 +1,27 @@
 const path = require('path')
-const htmlWebpackPlugin = require('html-webpack-plugin')
-const MiniCssExtractPlugin = require("mini-css-extract-plugin")
+const merge = require('webpack-merge')
 
-module.exports = {
+const commonConfig = require('./webpack.common.config.js')
+
+const devConfig = {
   mode: 'development',
-  entry: [
-    'react-hot-loader/patch',
-    path.join(__dirname, 'src/index.js')
-  ],
+  devtool: 'inline-source-map',
+  entry: {
+    app: [
+      'react-hot-loader/patch',
+      path.join(__dirname, 'src/index.js'),
+    ]
+  },
   watch: true,
   output: {
-    path: path.join(__dirname, './dist'),
-    filename: "bundle.js"
-  },
-  devtool: 'inline-source-map',
-  resolve: {
-    alias: {
-      '@': path.join(__dirname, 'src'),
-      comp: path.join(__dirname, 'src/components'),
-      act: path.join(__dirname, 'src/redux/actions')
-    }
+    filename: '[name].[hash].js'
   },
   module: {
     rules: [
       {
         test: /\.(js|jsx)$/,
-        include: [
-          path.resolve(__dirname, 'src'),
-          path.resolve(__dirname, 'public')
-        ],
-        exclude: [
-          path.resolve(__dirname, 'node_modules')
-        ],
-        use: {
-          loader: 'babel-loader'
-        }
-      },
-      {
-        test: /\.(js|jsx)$/,
         use: 'react-hot-loader/webpack',
         include: /node_modules/
-      },
-      {
-        test: /\.html$/,
-        use: [
-          {
-            loader: "html-loader"
-          }
-        ]
-      },
-      {
-        test: /.(css|scss)$/,
-        use: ["style-loader", "css-loader", "sass-loader"]
-      },
-      {
-        test: /.(jpg|jpeg|png|gif|mp3|svg)$/,
-        use: [
-          {
-            loader: "file-loader",
-            options: {
-              name: "[path][name]-[hash:8].[ext]"
-            }
-          }
-        ]
       }
     ]
   },
@@ -71,16 +30,15 @@ module.exports = {
     historyApiFallback: true,
     host: '0.0.0.0',
     port: 3000,
-  },
-  plugins: [
-    new htmlWebpackPlugin({
-      template: './public/index.html',
-      filename: 'index.html'
-    }),
-    new MiniCssExtractPlugin({
-      filename: "[name].css",
-      chunkFilename: "[id].css"
-    }),
-    
-  ]
+  }
 }
+
+module.exports = merge({
+  customizeArray(a, b, key) {
+    /*entry.app不合并，全替换*/
+    if (key === 'entry.app') {
+      return b;
+    }
+    return undefined;
+  }
+})(commonConfig, devConfig)
