@@ -1,19 +1,22 @@
 import React, { Component } from 'react'
 import './App.css'
-import CommentApp from './components/comment/CommentApp'
+
+import Nav from 'comp/nav/Nav'
+import getRouter from './router/router'
 
 class App extends Component {
-    constructor(props) {
-      super(props)
-    }
+  constructor(props) {
+    super(props)
+  }
 
-    render() {
-        return (
-            <div>
-                <CommentApp/>
-            </div>
-        );
-    }
+  render() {
+    return (
+      <div>
+        <Nav/>
+        {getRouter()}
+      </div>
+    );
+  }
 }
 
 export default App;

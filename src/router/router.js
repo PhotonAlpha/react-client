@@ -1,14 +1,12 @@
 import React from 'react'
 
-import {BrowserRouter as Router, Route, Switch, Link} from 'react-router-dom'
+import {Route, Switch} from 'react-router-dom'
 
 import Bundle from './Bundle';
 import Home from 'bundle-loader?lazy&name=Home!comp/comment/CommentApp'
 import Login from 'bundle-loader?lazy&name=Login!comp/login/Login'
-
-const Loading = function () {
-  return <div>Loading...</div>
-}
+import NotFound from 'bundle-loader?lazy&name=NotFound!comp/not-found/NotFound'
+import Loading from 'comp/loading/Loading'
 
 const createComponent = (component) => (props) => (
   <Bundle load={component}>
@@ -19,18 +17,11 @@ const createComponent = (component) => (props) => (
 )
 
 const getRouter = () => (
-  <Router>
-    <div>
-      <ul>
-        <li><Link to="/">首页</Link></li>
-        <li><Link to="/page1">Page1</Link></li>
-      </ul>
-      <Switch>
-        <Route exact path="/" component={createComponent(Home)}/>
-        <Route path="/page1" component={createComponent(Login)}/>
-      </Switch>
-    </div>
-  </Router>
+  <Switch>
+    <Route exact path="/" component={createComponent(Home)}/>
+    <Route exact path="/page1" component={createComponent(Login)}/>
+    <Route component={createComponent(NotFound)}/>
+  </Switch>
 )
 
 export default getRouter

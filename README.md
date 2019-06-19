@@ -5,6 +5,9 @@ https://juejin.im/post/5b99b9cd6fb9a05cff32007a#heading-7
 
 https://www.cnblogs.com/kwzm/p/10314438.html
 
+### @babel/polyfill的改动
+https://juejin.im/post/5ce693b45188252db303ff23#heading-9
+
 ## Available Scripts
 
 In the project directory, you can run:

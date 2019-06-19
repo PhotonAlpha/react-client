@@ -1,6 +1,7 @@
 const path = require('path')
 const htmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require("mini-css-extract-plugin")
+const postcssPresetEnv = require('postcss-preset-env')
 
 module.exports = {
   entry: {
@@ -10,14 +11,15 @@ module.exports = {
     vendor: ['react', 'react-router-dom', 'redux', 'react-dom', 'react-redux']
   },
   output: {
-    path: path.join(__dirname, './dist'),
+    path: path.join(__dirname, 'dist'),
     filename: '[name].[chunkhash].js',
     chunkFilename: '[name].[chunkhash].js',
-    publicPath: '/js/'
+    publicPath: '/'
   },
   resolve: {
     alias: {
       '@': path.join(__dirname, 'src'),
+      mock: path.join(__dirname, 'mock'),
       comp: path.join(__dirname, 'src/components'),
       act: path.join(__dirname, 'src/redux/actions')
     }
@@ -53,6 +55,19 @@ module.exports = {
           'sass-loader',
         ]
       },
+      // reference: https://github.com/postcss/postcss/blob/master/README-cn.md
+      {
+        test: /\.(sc|c)ss$/,
+        use: [{
+          loader: 'postcss-loader',
+          options: {
+            ident: 'postcss',
+            plugins: () => [
+              postcssPresetEnv(/* pluginOptions */)
+            ]
+          }
+        }]
+      },
       {
         test: /.(jpg|jpeg|png|gif|mp3|svg)$/,
         use: [
@@ -73,18 +88,20 @@ module.exports = {
     }),
     new MiniCssExtractPlugin({
       filename: "[name].[contenthash:5].css",
-      chunkFilename: "[id].[contenthash:5].css"
+      chunkFilename: "[name].[contenthash:5].css"
     })
   ],
   optimization: {
+    chunkIds: 'named',
+    moduleIds: 'hashed',
     splitChunks: {
       chunks: 'all',
-      name: true,
+      name: false,
       cacheGroups: {
         vendor: {
           name: 'vendor',
           chunks: 'initial',
-          filename: 'vendor.js',
+          filename: '[name].bundle.js',
           enforce: true
         },
         default: {
