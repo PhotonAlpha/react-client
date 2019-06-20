@@ -11,9 +11,9 @@ module.exports = {
     vendor: ['react', 'react-router-dom', 'redux', 'react-dom', 'react-redux']
   },
   output: {
-    path: path.join(__dirname, 'dist'),
-    filename: '[name].[chunkhash].js',
-    chunkFilename: '[name].[chunkhash].js',
+    path: path.resolve(__dirname, 'dist'),
+    filename: 'static/js/[name].[chunkhash].js',
+    chunkFilename: 'static/js/[name].[chunkhash].js',
     publicPath: '/'
   },
   resolve: {
@@ -21,7 +21,8 @@ module.exports = {
       '@': path.join(__dirname, 'src'),
       mock: path.join(__dirname, 'mock'),
       comp: path.join(__dirname, 'src/components'),
-      act: path.join(__dirname, 'src/redux/actions')
+      act: path.join(__dirname, 'src/redux/actions'),
+      asset: path.join(__dirname, 'public/assets')
     }
   },
   module: {
@@ -69,12 +70,13 @@ module.exports = {
         }]
       },
       {
-        test: /.(jpg|jpeg|png|gif|mp3|svg)$/,
+        test: /.(jpg|jpeg|png|gif|mp3|svg|ico)$/,
         use: [
           {
-            loader: "file-loader",
+            loader: "url-loader",
             options: {
-              name: "[path][name]-[hash:8].[ext]"
+              name: "static/imgs/[name]-[hash:8].[ext]",
+              limit: 8192
             }
           }
         ]
@@ -87,21 +89,23 @@ module.exports = {
       filename: 'index.html'
     }),
     new MiniCssExtractPlugin({
-      filename: "[name].[contenthash:5].css",
-      chunkFilename: "[name].[contenthash:5].css"
+      filename: "static/css/[name].[contenthash:5].css",
+      chunkFilename: "static/css/[name].[contenthash:5].css"
     })
   ],
   optimization: {
     chunkIds: 'named',
     moduleIds: 'hashed',
     splitChunks: {
+      minSize: 30000,
+      maxSize: 0,
       chunks: 'all',
       name: false,
       cacheGroups: {
         vendor: {
           name: 'vendor',
           chunks: 'initial',
-          filename: '[name].bundle.js',
+          filename: 'static/js/[name].bundle.js',
           enforce: true
         },
         default: {

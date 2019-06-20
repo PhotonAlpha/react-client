@@ -6,7 +6,8 @@ import ListItem from '@material-ui/core/ListItem';
 // import ListItemText from '@material-ui/core/ListItemText';
 // import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 // import Avatar from '@material-ui/core/Avatar';
-import pic1 from '../../assets/imgs/picsum1.jpeg'
+import pic1 from 'asset/picsum4.jpeg'
+import pic from 'asset/picsum1.jpeg'
 import Comment from './Comment'
 
 export class CommentList extends Component {
