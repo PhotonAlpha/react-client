@@ -31,7 +31,7 @@ const devConfig = {
     host: '0.0.0.0',
     port: 3000,
     proxy: {
-      "/api/*": "http://localhost:8080/$1"
+      "/api/*": "http://localhost:8080"
     }
   }
 }
