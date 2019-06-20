@@ -29,10 +29,11 @@ const devConfig = {
     contentBase: path.join(__dirname, '/dist/'),
     historyApiFallback: true,
     host: '0.0.0.0',
-    port: 3000,
-    // proxy: {
-    //   "/api/*": "http://localhost:3000"
-    // }
+    port: 4200,
+    proxy: {
+      "/api/*": "http://localhost:3000"
+    }
+    // after: require('./mock/index.js')
   }
 }
 
