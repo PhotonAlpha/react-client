@@ -1,5 +1,4 @@
 {
-  "/api/*": "/$1",
-  "/api/user/info": "/user",
+  "/api/user/info": "/info",
   "/api/table/list": "/tables"
 }

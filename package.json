@@ -31,7 +31,7 @@
     "origin build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "mock": "json-server mock/mock.js --watch --port 8080 --routes mock/routes.json -m mock/middleware.js "
+    "mock": "json-server mock/mock.js --watch --port 8080 --routes mock/routes.json -m mock/middleware.js"
   },
   "eslintConfig": {
     "extends": "react-app"

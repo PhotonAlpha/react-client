@@ -32,6 +32,7 @@ export default  store => next => action => {
   });
   /*定义请求成功时的方法*/
   const onFulfilled = result => {
+      console.log('call', result)
       next({
           ...rest,
           result,

@@ -1,3 +1,5 @@
+let Mock = require('mockjs')
+
 const tokens = {
   admin: {
     token: 'admin-token'
@@ -7,95 +9,34 @@ const tokens = {
   }
 }
 
-const users = {
+const users =  Mock.mock({
   'admin-token': {
     roles: ['admin'],
     introduction: 'I am a super administrator',
-    avatar: 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif',
-    name: 'Super Admin'
+    avatar: '',
+    name: 'Super Admin',
+    intro: '@word(20)'
   },
   'editor-token': {
     roles: ['editor'],
     introduction: 'I am an editor',
-    avatar: 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif',
-    name: 'Normal Editor'
+    avatar: '',
+    name: 'Normal Editor',
+    intro: '@word(20)'
   }
-}
-
-import Mock from 'mockjs'
-
-const data =  Mock.mock({
-  'name': '@cname',
-  'intro': '@word(20)'
 })
 
-export default [
-  // user login
-  {
-    url: '/user/login',
-    type: 'post',
-    response: config => {
-      const { username } = config.body
-      const token = tokens[username]
-
-      // mock error
-      if (!token) {
-        return {
-          code: 60204,
-          message: 'Account and password are incorrect.'
-        }
-      }
-
-      return {
-        code: 20000,
-        data: token
-      }
+module.exports = () => {
+  return {
+    login: {
+      ...tokens
+    },
+    info: {
+      ...users
+    },
+    logout: {
+      code: 20000,
+      data: 'success'
     }
-  },
-
-  // get user info
-  {
-    url: '/user/info\.*',
-    type: 'get',
-    response: config => {
-      console.log('config', config)
-      const { token } = config.query
-      const info = users[token]
-
-      // mock error
-      if (!info) {
-        return {
-          code: 50008,
-          message: 'Login failed, unable to get user details.'
-        }
-      }
-
-      return {
-        code: 20000,
-        data: info
-      }
-    }
-  },
-
-  // user logout
-  {
-    url: '/user/logout',
-    type: 'post',
-    response: _ => {
-      return {
-        code: 20000,
-        data: 'success'
-      }
-    }
-  },
-  {
-    url: '/api/user',
-    type: 'get',
-    response: _ => {
-      return {
-        code: 20000,
-        data: data
-      }
-    }
-  },
-]
+  }
+}

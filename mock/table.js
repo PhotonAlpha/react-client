@@ -11,19 +11,23 @@ const data = Mock.mock({
   }]
 })
 
-export default [
-  {
-    url: '/table/list',
-    type: 'get',
-    response: config => {
-      const items = data.items
-      return {
-        code: 20000,
-        data: {
-          total: items.length,
-          items: items
-        }
-      }
+const userInfo = Mock.mock('/api/user', {
+  'name': '@cname',
+  'intro': '@word(20)'
+})
+
+function tableList() {
+  const items = data.items
+  return {
+    code: 20000,
+    data: {
+      total: items.length,
+      items: items
     }
   }
-]
+}
+function getUserInfo() {
+  return userInfo
+}
+
+export { tableList, getUserInfo }

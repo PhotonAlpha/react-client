@@ -1,3 +1,5 @@
+let user = require('./user')
+
 let Mock = require('mockjs')
 
 const Random = Mock.Random
@@ -14,10 +16,9 @@ const tableData = Mock.mock({
 })
 
 module.exports = function () {
-  var data = {}
-  data.user = {
-    'name': Random.cname(),
-    'intro': Random.word(20)
+  const userData = user()
+  var data = {
+    ...userData
   }
   data.tables = tableData.items
   return data

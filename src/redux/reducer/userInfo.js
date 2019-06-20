@@ -7,6 +7,7 @@ const initState = {
 }
 
 export default function reducer(state = initState, action) {
+  console.log(initState, action)
   switch (action.type) {
     case GET_USER_INFO_REQUEST:
       return {

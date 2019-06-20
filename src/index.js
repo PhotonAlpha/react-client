@@ -12,6 +12,8 @@ import * as serviceWorker from './serviceWorker'
 import App from './App'
 import store from './redux/store/store'
 
+import 'mock/index'
+
 renderWithHotReload(App)
 
 /*hot update*/
