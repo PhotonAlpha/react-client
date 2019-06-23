@@ -24,10 +24,11 @@ module.exports =  {
   },
   getUserInfo: config => {
     const { token } = param2Obj(config.url)
+    console.log('getUserInfo', config.url, token)
     if (userMap[token]) {
       return userMap[token]
     } else {
-      return false
+      return `${config}`
     }
   },
   logout: () => 'success'

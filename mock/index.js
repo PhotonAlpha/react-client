@@ -64,6 +64,6 @@ app.get('/api/user', function (req, res) {
   res.json(Mock.mock(loginAPI.getUserInfo(req)))
 })
 
-app.listen('3000', () => {
-  console.log('监听端口 3000')
+app.listen('8080', () => {
+  console.log('监听端口 8080')
 })
