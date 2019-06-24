@@ -1,13 +1,10 @@
-import React, { Component } from 'react';
-// import { reduxForm, Field } from 'redux-form'
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
-import purple from '@material-ui/core/colors/purple';
-import { unstable_Box as Box } from '@material-ui/core/Box';
-
-// const required = value => (value == null ? 'Required' : undefined);
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+import { withStyles } from '@material-ui/core/styles'
+import TextField from '@material-ui/core/TextField'
+import Button from '@material-ui/core/Button'
+import purple from '@material-ui/core/colors/purple'
+import { unstable_Box as Box } from '@material-ui/core/Box'
 
 const styles = theme => ({
   container: {
@@ -33,58 +30,49 @@ const styles = theme => ({
   notchedOutline: {}
 })
 
-// const renderTextField = ({ input, label, meta: { touched, error }, ...custom }) => (
-//   <TextField hintText={label}
-//     floatingLabelText={label}
-//     errorText={touched && error}
-//     {...input}
-//     {...custom}
-//   />
-// )
-
 export class CommentInput extends Component {
+  /** ptypes */
+  static propTypes = {
+    username: PropTypes.string,
+    onUserNameInputBlur: PropTypes.func,
+    onSubmit: PropTypes.func
+  }
+
+  static defaultProps = {
+    username: ''
+  }
+  /**rconst */
   constructor(props) {
     super(props)
+  
     this.state = {
-      name: '',
-      comment: '',
-      createTime: +new Date()
+       username: props.username,
+       comment: ''
     }
-    this.textarea = React.createRef()
   }
-  componentWillMount() {
-    console.log('componentWillMount')
-    this._loadUsername()
-  }
-  
   componentDidMount() {
-    console.log('componentDidMount')
+    
   }
   
-  _saveUsername(username) {
-    localStorage.setItem('username', username)
-  }
-  _loadUsername() {
-    const username = localStorage.getItem('username')
-    if (username) {
-      this.setState({name: username})
+  handleUserNameBlur = event => {
+    if (this.props.onUserNameInputBlur) {
+      this.props.onUserNameInputBlur(event.target.value)
     }
   }
+
   handleChange = name => event => {
     this.setState({
       [name]: event.target.value,
     })
   }
-  handleBlur = event => {
-    console.log('handleBlur')
-    this._saveUsername(event.target.value)
-  }
+
   handleSubmit = () => {
-    console.log('submit')
     if (this.props.onSubmit) {
-      const {name, comment} = this.state;
-      const createTime = +new Date()
-      this.props.onSubmit({name, comment, createTime})
+      this.props.onSubmit({
+        username: this.state.username,
+        comment: this.state.comment,
+        createTime: +new Date()
+      })
     }
     this.setState({comment: ''})
   }
@@ -122,7 +110,7 @@ export class CommentInput extends Component {
           onChange={this.handleChange('comment')}
           autoFocus={true}
         />
-        <Box display="flex" justifyContent="flex-end">
+        <Box display="flex" justifycomment="flex-end">
           <Button variant="contained" color="primary" className={classes.button}
           onClick={this.handleSubmit} >
             Commit
@@ -136,11 +124,5 @@ export class CommentInput extends Component {
 CommentInput.propTypes = {
   classes: PropTypes.object.isRequired
 }
-
-
-// export default withStyles(styles)(reduxForm({
-//   form: 'testReduxForm',
-//   initialValues:{ firstName: 'fn'}
-// })(CommentInput));
 
 export default withStyles(styles)(CommentInput)

@@ -2,10 +2,6 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-// import ListItemIcon from '@material-ui/core/ListItemIcon';
-// import ListItemText from '@material-ui/core/ListItemText';
-// import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-// import Avatar from '@material-ui/core/Avatar';
 import pic1 from 'asset/picsum4.jpeg'
 import pic from 'asset/picsum1.jpeg'
 import Comment from './Comment'
