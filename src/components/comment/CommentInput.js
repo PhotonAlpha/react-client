@@ -55,18 +55,21 @@ export class CommentInput extends Component {
   }
   
   handleUserNameBlur = event => {
+    console.log('handleUserNameBlur', event.target.value)
     if (this.props.onUserNameInputBlur) {
       this.props.onUserNameInputBlur(event.target.value)
     }
   }
 
   handleChange = name => event => {
+    console.log('handleChange', name, event.target.value)
     this.setState({
       [name]: event.target.value,
     })
   }
 
   handleSubmit = () => {
+    console.log('submit', this.props.onSubmit)
     if (this.props.onSubmit) {
       this.props.onSubmit({
         username: this.state.username,
@@ -78,15 +81,15 @@ export class CommentInput extends Component {
   }
 
   render() {
-    console.log('render', this.state)
-    const { classes } = this.props;
+    const { classes } = this.props
     return (
       <form >
         {/* <Field name="firstName" component={renderTextField} label="First Name"/> */}
         <TextField
             label="UserName"
-            value={this.state.name}
-            onChange={this.handleChange('name')}
+            value={this.state.username}
+            onChange={this.handleChange('username')}
+            onBlur={this.handleUserNameBlur}
             InputProps={{
               classes: {
                 root: classes.cssOutlinedInput,
@@ -96,7 +99,6 @@ export class CommentInput extends Component {
             fullWidth
             margin="normal"
             variant="outlined"
-            onBlur={this.handleBlur}
           />
         <TextField
           label="comment"

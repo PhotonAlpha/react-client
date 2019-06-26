@@ -1,12 +1,16 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
+/**redux */
+import { connect } from 'react-redux'
+
+import { initComments, deleteComment } from '../../redux/reducer/comment'
 import CommentList from 'comp/comment/CommentList'
 
-export default class CommentListContainer extends Component {
+class CommentListContainer extends Component {
   /**ptypes */
   static propTypes = {
-    comments: PropTypes.string,
+    comments: PropTypes.array,
     initComments: PropTypes.func,
     onDeleteComment: PropTypes.func
   }
@@ -18,6 +22,7 @@ export default class CommentListContainer extends Component {
   _loadComments() {
     let comments = localStorage.getItem('comments')
     comments = comments ? JSON.parse(comments) : []
+    console.log('storage', comments)
     // this.props.initComments 是 connect 传进来的
     // 可以帮我们把数据初始化到 state 里面去
     this.props.initComments(comments)
@@ -25,7 +30,7 @@ export default class CommentListContainer extends Component {
 
   handleDeleteComment = index => {
     const { comments } = this.props
-    console.log('comment list', index, this.props)
+    console.log('comment list', index, comments)
     const newComments = [
       ...comments.slice(0, index),
       ...comments.slice(index + 1)
@@ -46,3 +51,22 @@ export default class CommentListContainer extends Component {
     )
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    comments: state.commentContent.comments
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    initComments: (comments) => {
+      dispatch(initComments(comments))
+    },
+    onDeleteComment: (index) => {
+      dispatch(deleteComment(index))
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps) (CommentListContainer)

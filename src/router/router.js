@@ -3,7 +3,7 @@ import React from 'react'
 import {Route, Switch} from 'react-router-dom'
 
 import Bundle from './Bundle';
-import Home from 'bundle-loader?lazy&name=Home!comp/comment/CommentApp'
+import Home from 'bundle-loader?lazy&name=Home!container/comment/CommentApp'
 import Login from 'bundle-loader?lazy&name=Login!comp/login/Login'
 import NotFound from 'bundle-loader?lazy&name=NotFound!comp/not-found/NotFound'
 import Loading from 'comp/loading/Loading'

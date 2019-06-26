@@ -28,7 +28,7 @@ export class Comment extends Component {
     super(props)
     console.log('Comment', props)
     this.state = {
-      name: '',
+      username: '',
       comment: '',
       createTimeStr: '',
       pic: props.pic
@@ -48,9 +48,9 @@ export class Comment extends Component {
   
   _updateTimeString () {
     console.log('update time')
-    const { name, comment, createTime } = this.props.comment
+    const { username, comment, createTime } = this.props.comment
     const createTimeStr = moment(createTime).fromNow()
-    this.setState({name, comment, createTimeStr})
+    this.setState({username, comment, createTimeStr})
   }
 
   handleDeleteComment = () => {
@@ -61,21 +61,20 @@ export class Comment extends Component {
   }
 
   render() {
-    console.log('render', this.state)
-    const { name, comment, createTimeStr } = this.state
+    const { username, comment, createTimeStr } = this.state
     return (
       <div>
         <ListItem button >
           <ListItemAvatar>
             <Avatar alt="Remy Sharp" src={this.state.pic} />
           </ListItemAvatar>
-          <ListItemText primary={name}
+          <ListItemText primary={username}
             secondary={
               // <React.Fragment>
               //   <Typography
               //     component="span"
               //     variant="body2"
-              //     className={styles.inline}
+              //     classusername={styles.inline}
               //     color="textPrimary"
               //   >
                 comment

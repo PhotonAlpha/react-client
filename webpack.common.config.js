@@ -21,6 +21,7 @@ module.exports = {
       '@': path.join(__dirname, 'src'),
       mock: path.join(__dirname, 'mock'),
       comp: path.join(__dirname, 'src/components'),
+      container: path.join(__dirname, 'src/containers'),
       act: path.join(__dirname, 'src/redux/actions'),
       asset: path.join(__dirname, 'public/assets')
     }

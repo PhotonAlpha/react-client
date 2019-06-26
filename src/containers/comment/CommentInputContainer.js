@@ -1,9 +1,11 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
 
+import { addComment } from '../../redux/reducer/comment'
 import CommentInput from 'comp/comment/CommentInput'
 
-export default class CommentInputContainer extends Component {
+class CommentInputContainer extends Component {
   static propTypes = {
     comments: PropTypes.array,
     onSubmit: PropTypes.func
@@ -29,13 +31,15 @@ export default class CommentInputContainer extends Component {
     }
   }
 
-  _saveUsername (username) {
+  _saveUsername = username => {
     // 看看 render 方法的 onUserNameInputBlur
     // 这个方法会在用户名输入框 blur 的时候的被调用，保存用户名
     localStorage.setItem('username', username)
+    this.setState({ username })
   }
 
-  handleSubmitComment = (comment) => {
+  handleSubmitComment = comment => {
+    console.log('handleSubmitComment', comment)
     // 评论数据的验证
     if (!comment) return
     if (!comment.username) return alert('请输入用户名')
@@ -52,13 +56,30 @@ export default class CommentInputContainer extends Component {
   }
 
   render() {
+    console.log('input render', this.props)
     return (
       <div>
         <CommentInput 
-        username={this.props.username}
-        onUserNameInputBlur={this._saveUsername.bind(this)}
+        username={this.state.username}
+        onUserNameInputBlur={this._saveUsername}
         onSubmit={this.handleSubmitComment}  />
       </div>
     )
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    comments: state.commentContent.comments
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onSubmit: (comment) => {
+      dispatch(addComment(comment))
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps) (CommentInputContainer)
